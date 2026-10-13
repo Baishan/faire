@@ -12,11 +12,11 @@ declare
 begin
   -- Admin check first. "is distinct from" so a null role (no JWT) is rejected too.
   if (auth.jwt() -> 'app_metadata' ->> 'role') is distinct from 'admin' then
-    raise exception 'forbidden' using errcode = '42501';
+    raise exception 'forbidden' using errcode = 'insufficient_privilege';
   end if;
 
   if client_name is null or length(trim(client_name)) = 0 then
-    raise exception 'client_name is required' using errcode = '22023';
+    raise exception 'client_name is required' using errcode = 'invalid_parameter_value';
   end if;
 
   -- High-entropy token with a recognisable prefix
