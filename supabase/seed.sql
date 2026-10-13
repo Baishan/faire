@@ -71,3 +71,6 @@ select
   now(),
   now()
 from inserted_users;
+
+insert into public.ingest_clients(name, token_hash)
+values ('local-test', encode(extensions.digest('faire_ing_localdev', 'sha256'), 'hex'));
